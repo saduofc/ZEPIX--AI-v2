@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhatsApp Bot Pairing</title>
+  <style>
+    body { font-family: Arial; text-align: center; padding: 50px; background: #f0f0f0; }
+    input { padding: 10px; width: 200px; margin: 10px; }
+    button { padding: 10px 20px; background: #25D366; color: white; border: none; cursor: pointer; }
+    #code { font-size: 24px; color: green; margin: 20px; font-weight: bold; }
+    #status { margin: 20px; font-size: 18px; }
+  </style>
+</head>
+<body>
+  <h1>WhatsApp Bot Setup</h1>
+  <p>Enter your phone number (with country code, e.g., 94771234567):</p>
+  <form id="phoneForm">
+    <input type="tel" id="phone" placeholder="Phone Number" required>
+    <br>
+    <button type="submit">Get Pairing Code</button>
+  </form>
+  <div id="code"></div>
+  <div id="status"></div>
+
+  <script>
+    const form = document.getElementById('phoneForm');
+    const codeDiv = document.getElementById('code');
+    const statusDiv = document.getElementById('status');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const phone = document.getElementById('phone').value.replace(/\D/g, '');
+      statusDiv.textContent = 'Generating code...';
+
+      const response = await fetch('/generate-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone })
+      });
+
+      const data = await response.json();
+      if (data.code) {
+        codeDiv.textContent = `Pairing Code: ${data.code}`;
+        statusDiv.textContent = 'Use this code in WhatsApp > Linked Devices > Link with phone number';
+      } else {
+        statusDiv.textContent = 'Error: ' + data.error;
+      }
+    });
+
+    // Poll for connection status
+    setInterval(async () => {
+      const res = await fetch('/status');
+      const data = await res.json();
+      if (data.connected) {
+        statusDiv.textContent = '✅ Bot Connected Successfully!';
+        statusDiv.style.color = 'green';
+      }
+    }, 5000);
+  </script>
+</body>
+</html>
