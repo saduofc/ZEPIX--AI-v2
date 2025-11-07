@@ -1,13 +1,13 @@
 module.exports = {
   // === Gemini AI Settings ===
-  geminiApiKey: 'YOUR_GEMINI_API_KEY_HERE', // Google AI Studio key
+  geminiApiKey: 'https://sadiya-tech-apis.vercel.app/ai/gemini?q=hi&apikey=dinesh-api-key', // Google AI Studio key
   aiModel: 'gemini-1.5-flash', // Or 'gemini-pro'
 
   // === Bot Settings ===
-  botName: 'Gemini Bot',
+  botName: '𝐙𝐄𝐏𝐈𝐗-𝐀𝐈',
   sessionPath: './session',
   usePairingCode: true,
-  defaultPhoneNumber: '94771234567', // Default, web form එකෙන් override
+  defaultPhoneNumber: '94740744203', // Default, web form එකෙන් override
 
   // === Auto React ===
   autoReactMessages: true,
@@ -19,7 +19,7 @@ module.exports = {
 
   // === Notifications ===
   sendConnectNotification: true,
-  connectNotifyMessage: 'Gemini Bot is now ONLINE!',
+  connectNotifyMessage: 'Zepix ai Bot is now ONLINE!',
 
   // === AI Reply ===
   aiReplyToStatus: true
